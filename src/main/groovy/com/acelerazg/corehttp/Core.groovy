@@ -24,7 +24,7 @@ class Core {
         return (Document) HttpBuilder.configure { request.uri = url }.get()
     }
 
-    static downloadComponents(String url, String componentName, String fileName){
+    static downloadArquivo(String url, String componentName, String fileName){
 
         String pastaDownloads = "../downloads/${componentName}"
 
@@ -44,7 +44,7 @@ class Core {
 
     static void salvarHistorico(String competencia, String publicacao, String inicioVigencia) {
 
-        String pastaDownloads = "../downloads"
+        String pastaDownloads = "../downloads/Histórico versões Componentes padrão TISS"
         String arquivo = "../downloads/Histórico versões Componentes padrão TISS.csv"
 
         Path caminho = Paths.get(pastaDownloads)

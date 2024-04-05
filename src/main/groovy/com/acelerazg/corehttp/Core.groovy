@@ -44,16 +44,17 @@ class Core {
 
     static void salvarHistorico(String competencia, String publicacao, String inicioVigencia) {
 
-        String pastaDownloads = "../downloads/Histórico versões Componentes padrão TISS"
-        String arquivo = "../downloads/Histórico versões Componentes padrão TISS.csv"
+        String nomePasta = "Histórico versões Componentes padrão TISS"
+        String pastaDownloads = "../downloads/${nomePasta}"
+        String arquivo = "../downloads/${nomePasta}/Histórico versões Componentes padrão TISS.csv"
 
         Path caminho = Paths.get(pastaDownloads)
 
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo, true))){
+        if (!Files.exists(caminho)) {
+            Files.createDirectories(caminho)
+        }
 
-            if (!Files.exists(caminho)) {
-                Files.createDirectories(caminho)
-            }
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo, true))){
 
             String linhaCSV = String.format("%s,%s,%s", competencia, publicacao, inicioVigencia)
             escritor.write(linhaCSV)

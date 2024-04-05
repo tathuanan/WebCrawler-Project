@@ -12,8 +12,8 @@ class PadraoTISS {
         Element conteudo = pagina.getElementsByClass("internal-link").first()
         String link = conteudo.getElementsByTag("a").attr("href")
 
-        Document pagina2 = Core.getPagina(link)
-        conteudo = pagina2.getElementsByTag("tbody").first()
+        pagina = Core.getPagina(link)
+        conteudo = pagina.getElementsByTag("tbody").first()
         List<Element> documentos = conteudo.getElementsByTag("tr")
 
         try{
@@ -22,7 +22,7 @@ class PadraoTISS {
                 List<Element> tdLista = tr.getElementsByTag("td")
                 String componentName = tdLista.get(0).text()
                 String urlDownload = tr.getElementsByTag("a").attr("href")
-                Core.downloadComponents("${urlDownload}", "${componentName}","${componentName}")
+                Core.downloadArquivo("${urlDownload}", "${componentName}","${componentName}")
 
             }
 
@@ -55,6 +55,20 @@ class PadraoTISS {
                 Core.salvarHistorico(competencia, publicacao, inicioVigencia)
             }
         }
+    }
+
+    static void getTabelaErrosEnvioANS(){
+
+        Document pagina = Core.getPaginaTISS()
+        Element conteudo = pagina.getElementsByClass("internal-link").get(2)
+        String link = conteudo.getElementsByTag("a").attr("href")
+
+        pagina = Core.getPagina(link)
+        conteudo = pagina.getElementById("parent-fieldname-text")
+        link = conteudo.getElementsByTag("a").first().attr("href")
+        String nomeTabela = conteudo.getElementsByTag("h2").first().text()
+
+        Core.downloadArquivo("${link}","${nomeTabela}","${nomeTabela}")
 
     }
 

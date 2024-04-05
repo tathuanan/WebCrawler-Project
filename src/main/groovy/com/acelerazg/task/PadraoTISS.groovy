@@ -1,6 +1,8 @@
 package com.acelerazg.task
 
 import com.acelerazg.corehttp.Core
+import groovyx.net.http.HttpBuilder
+import groovyx.net.http.optional.Download
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
@@ -66,9 +68,9 @@ class PadraoTISS {
         pagina = Core.getPagina(link)
         conteudo = pagina.getElementById("parent-fieldname-text")
         link = conteudo.getElementsByTag("a").first().attr("href")
-        String nomeTabela = conteudo.getElementsByTag("h2").first().text()
+        String nomeArquivo = conteudo.getElementsByTag("h2").first().text()
 
-        Core.downloadArquivo("${link}","${nomeTabela}","${nomeTabela}")
+        Core.downloadArquivo("${link}","${nomeArquivo}","${nomeArquivo}.xlsx")
 
     }
 
